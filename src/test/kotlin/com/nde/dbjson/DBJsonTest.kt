@@ -20,7 +20,7 @@ import kotlin.system.measureTimeMillis
 class DBJsonTest(@Autowired val tradeDataRepository: TradeDataRepository, @Autowired val dataSource: DataSource, @Autowired val entityManagerFactory: EntityManagerFactory) {
 
     @Test
-    fun loadData() {
+    fun `1-loadData`() {
 
         val iterations = 100
         val objectMapper = ObjectMapper()
@@ -37,7 +37,7 @@ class DBJsonTest(@Autowired val tradeDataRepository: TradeDataRepository, @Autow
 
 
     @Test
-    fun loadDataIterate() {
+    fun `2-loadDataIterate`() {
 
         val objectMapper = ObjectMapper()
         objectMapper.configure(SerializationFeature.FLUSH_AFTER_WRITE_VALUE, false)
@@ -64,7 +64,7 @@ class DBJsonTest(@Autowired val tradeDataRepository: TradeDataRepository, @Autow
     }
 
     @Test
-    fun loadDataIterateDBConnection() {
+    fun `3-loadDataIterateDBConnection`() {
 
         val objectMapper = ObjectMapper()
         objectMapper.configure(SerializationFeature.FLUSH_AFTER_WRITE_VALUE, false)
@@ -107,7 +107,7 @@ class DBJsonTest(@Autowired val tradeDataRepository: TradeDataRepository, @Autow
     }
 
     @Test
-    fun loadDataIterateHibernateStream() {
+    fun `4-loadDataIterateHibernateStream`() {
 
         val objectMapper = ObjectMapper()
         objectMapper.configure(SerializationFeature.FLUSH_AFTER_WRITE_VALUE, false)
@@ -155,7 +155,7 @@ class DBJsonTest(@Autowired val tradeDataRepository: TradeDataRepository, @Autow
     }
 
     @Test
-    fun loadDataIterateDBConnectionStreamObject() {
+    fun `5-loadDataIterateDBConnectionStreamObject`() {
 
         val objectMapper = ObjectMapper()
         objectMapper.configure(SerializationFeature.FLUSH_AFTER_WRITE_VALUE, false)

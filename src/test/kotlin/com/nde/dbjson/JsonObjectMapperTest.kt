@@ -14,7 +14,7 @@ import kotlin.system.measureTimeMillis
 
 class JsonObjectMapperTest {
     @Test
-    fun createJsonFileObjectMapper() {
+    fun `1-createJsonFileObjectMapper`() {
         val list = generateData(10000)
 
         val objectMapper = ObjectMapper()
@@ -29,35 +29,9 @@ class JsonObjectMapperTest {
         println(duration / iterations)
     }
 
-    @Test
-    fun createJsonFileFileStream() {
-        val list = generateData(10000)
-
-        val objectMapper = ObjectMapper()
-        objectMapper.configure(SerializationFeature.FLUSH_AFTER_WRITE_VALUE, false)
-        val jfactory = JsonFactory()
-        val iterations = 1000
-        val duration = measureTimeMillis {
-            repeat(iterations) {
-                val stream = File("testFile").outputStream()
-                val jGenerator: JsonGenerator = jfactory
-                        .createGenerator(stream, JsonEncoding.UTF8)
-                jGenerator.writeStartObject()
-                jGenerator.writeFieldName("data")
-                jGenerator.writeStartArray()
-                list.forEach { objectMapper.writeValue(jGenerator, it) }
-                jGenerator.writeEndArray()
-                jGenerator.writeEndObject()
-                jGenerator.close()
-                stream.close()
-            }
-        }
-
-        println(duration / iterations)
-    }
 
     @Test
-    fun createJsonFileByteArrayOutputStream() {
+    fun `2-createJsonFileByteArrayOutputStream`() {
         val list = generateData(10000)
 
         val objectMapper = ObjectMapper()
@@ -77,6 +51,33 @@ class JsonObjectMapperTest {
                 jGenerator.close()
                 stream.close()
                 File("testFile").writeBytes(stream.toByteArray())
+            }
+        }
+
+        println(duration / iterations)
+    }
+
+    @Test
+    fun `3-createJsonFileFileStream`() {
+        val list = generateData(10000)
+
+        val objectMapper = ObjectMapper()
+        objectMapper.configure(SerializationFeature.FLUSH_AFTER_WRITE_VALUE, false)
+        val jfactory = JsonFactory()
+        val iterations = 1000
+        val duration = measureTimeMillis {
+            repeat(iterations) {
+                val stream = File("testFile").outputStream()
+                val jGenerator: JsonGenerator = jfactory
+                        .createGenerator(stream, JsonEncoding.UTF8)
+                jGenerator.writeStartObject()
+                jGenerator.writeFieldName("data")
+                jGenerator.writeStartArray()
+                list.forEach { objectMapper.writeValue(jGenerator, it) }
+                jGenerator.writeEndArray()
+                jGenerator.writeEndObject()
+                jGenerator.close()
+                stream.close()
             }
         }
 
